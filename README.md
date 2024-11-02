@@ -1,1 +1,1 @@
-# japandashboard
+# 日本列島ダッシュボード
