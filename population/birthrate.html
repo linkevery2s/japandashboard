@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<title>少子化に関する統計</title>
+
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+	<meta charset="UTF-8" name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="https://cdn.tailwindcss.com"></script>
+
+	<style>
+		html,
+		body {
+			width: 100%;
+			padding: 0;
+			margin: 0;
+		}
+
+		.container {
+			width: 100%;
+			max-width: 800px;
+		}
+
+		#chart1 {
+			width: 100%;
+			padding: 0;
+			margin: 0;
+		}
+	</style>
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MPP84V2NHB"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-MPP84V2NHB');
+	</script>
+
+	<script type="module">
+
+		onload = async () => {
+			const data = await d3.csv('./birthrate.csv');
+
+			const data_length = data.length;
+
+			let x_axis = []; // x軸
+			let birth_count = []; //出生数
+			let sum_special_birthrate = []
+
+			for (let i = 0; i < data_length; i++) {
+				x_axis.push(data[i].year);
+				birth_count.push(data[i].sum);
+				sum_special_birthrate.push(data[i].sum_special_birthrate);
+			}
+
+			let options1 = {
+				series: [{
+					name: '出生数（人）',
+					type: 'column',
+					data: birth_count,
+					color: "#2BCBE4"
+				}, {
+					name: '合計特殊出生率（％）',
+					type: 'line',
+					data: sum_special_birthrate,
+					color: "#EC0000"
+				}],
+				chart: {
+					height: 500,
+					type: 'line'
+				},
+				stroke: {
+					width: [0, 4]
+				},
+				title: {
+					text: "",
+				},
+				dataLabels: {
+					enabled: false,
+					enabledOnSeries: [1]
+				},
+				labels: x_axis,
+				xaxis: {
+					type: 'datetime',
+					labels: {
+						datetimeFormatter: {
+							year: 'yyyy'
+						},
+					},
+				},
+				tooltip: {
+					x: {
+						format: 'yyyy'
+					}
+				},
+				yaxis: [{
+					type: "numeric",
+					title: {
+						text: "",
+					},
+					labels: {
+						formatter: function (label, index, labels) {
+							return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 3桁ごとに,を付ける
+						}
+					}
+				}, {
+					opposite: true,
+					title: {
+						text: ""
+					}
+				}]
+			};
+
+			let chart1 = new ApexCharts(document.querySelector("#chart1"), options1);
+			chart1.render();
+
+		}
+
+	</script>
+</head>
+
+<body>
+	<center>
+		<div class="container">
+
+			<h2 class="text-2xl mt-3">出生数と合計特殊出生率</h2>
+			<div id="chart1"></div>
+
+
+
+		</div>
+
+		<p class="text-xs">出典：「政府統計の総合窓口(e-Stat)」、年次別にみた出生数・出生率（人口千対）・出生性比及び合計特殊出生率を加工・編集して作成</p>
+		<p class="text-sm"><a href="https://github.com/linkevery2s/japandashboard/tree/main/population" target="_blank">src on GitHub</a>.</p>
+		<p class="text-sm">Design and Code by <a href="https://hitoshi2s.netlify.app/" target="_blank">Saito Hitoshi</a>.</p>
+		<p class="text-sm">Build with <a href="https://tailwindcss.com/" target="_blank">Tailwind</a> and <a href="https://apexcharts.com/" target="_blank">ApexCharts</a>.</p>
+
+	</center>
+</body>
+
+</html>
