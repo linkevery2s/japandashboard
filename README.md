@@ -5,9 +5,13 @@
 ### 人口統計
 
 ・[出生数、出生率](https://linkevery2s.github.io/japandashboard/population/birthrate.html)
+
 ・[高齢化率]
+
 ・[人口比率]
+
 ・[100歳以上の人口]
+
 
 ## ライセンス
 
