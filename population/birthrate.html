@@ -50,7 +50,7 @@
 
 			let x_axis = []; // x軸
 			let birth_count = []; //出生数
-			let sum_special_birthrate = []
+			let sum_special_birthrate = [] //合計特殊出生率
 
 			for (let i = 0; i < data_length; i++) {
 				x_axis.push(data[i].year);
@@ -119,6 +119,65 @@
 			let chart1 = new ApexCharts(document.querySelector("#chart1"), options1);
 			chart1.render();
 
+			let man_count = []; //男性
+			let weman_count = [] //女性
+
+			for (let i = 0; i < data_length; i++) {
+				man_count.push(data[i].man);
+				weman_count.push(data[i].weman);
+			}
+
+
+			let options2 = {
+				series: [{
+					name: '男性',
+					data: man_count
+				}, {
+					name: '女性',
+					data: weman_count
+				}],
+				chart: {
+					type: 'bar',
+					height: 350
+				},
+				plotOptions: {
+					bar: {
+						horizontal: false,
+						columnWidth: '55%',
+						endingShape: 'rounded'
+					},
+				},
+				dataLabels: {
+					enabled: false
+				},
+				stroke: {
+					show: true,
+					width: 2,
+					colors: ['transparent']
+				},
+				xaxis: {
+					categories: x_axis,
+				},
+				yaxis: {
+					title: {
+						text: ""
+					}
+				},
+				fill: {
+					opacity: 1
+				},
+				tooltip: {
+					y: {
+						formatter: function (label, index, labels) {
+							return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 3桁ごとに,を付ける
+						}
+					}
+				}
+			};
+
+			let chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+			chart2.render();
+
 		}
 
 	</script>
@@ -131,24 +190,21 @@
 
 			<h2 class="text-2xl text-center mb-3">少子化に関する統計</h2>
 			<div id="chart1"></div>
-
-
-
+			<div id="chart2"></div>
 
 			<div class="footer text-left mx-3 md:mx-0">
 				<p class="text-xs">出典：「政府統計の総合窓口(e-Stat)」、年次別にみた出生数・出生率（人口千対）・出生性比及び合計特殊出生率を加工・編集して作成</p>
 				<p class="text-xs mt-2">参考文献：ダッシュボードデザインの実践ガイドブック、デジタル庁</p>
-				<p class="text-sm mt-2"><a href="https://github.com/linkevery2s/japandashboard/tree/main/population"
-						target="_blank">src
-						on GitHub</a>. <a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank">CC
-						BY
+				<p class="text-sm mt-2">
+					<a href="https://github.com/linkevery2s/japandashboard/tree/main/population" target="_blank">src on
+						GitHub</a>. <a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank">CC BY
 						4.0</a>
 				</p>
-				<p class="text-sm mt-2">Design and Code by <a href="https://hitoshi2s.netlify.app/" target="_blank">Saito
-						Hitoshi</a>.
+				<p class="text-sm mt-2">Design and Code by <a href="https://hitoshi2s.netlify.app/"
+						target="_blank">Saito Hitoshi</a>.
 				</p>
-				<p class="text-sm mt-2">Build with <a href="https://tailwindcss.com/" target="_blank">Tailwind</a> and <a
-						href="https://apexcharts.com/" target="_blank">ApexCharts</a>.</p>
+				<p class="text-sm mt-2">Build with <a href="https://tailwindcss.com/" target="_blank">Tailwind</a> and
+					<a href="https://apexcharts.com/" target="_blank">ApexCharts</a>.</p>
 			</div>
 
 		</div>
