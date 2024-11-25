@@ -6,7 +6,7 @@
 	<meta charset="UTF-8" name="viewport"
 		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	
+
 	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 	<script src="https://d3js.org/d3.v5.min.js"></script>
 	<script src="https://cdn.tailwindcss.com"></script>
@@ -19,15 +19,15 @@
 			margin: 0;
 		}
 
-		.container {
-			width: 100%;
-			max-width: 800px;
-		}
-
 		#chart1 {
 			width: 100%;
 			padding: 0;
 			margin: 0;
+		}
+
+		a {
+			color: #72C598 !important;
+			border-bottom: 1px dotted #72C598;
 		}
 	</style>
 
@@ -78,7 +78,7 @@
 					width: [0, 4]
 				},
 				title: {
-					text: "",
+					text: "出生数と合計特殊出生率",
 				},
 				dataLabels: {
 					enabled: false,
@@ -125,22 +125,35 @@
 </head>
 
 <body>
-	<center>
-		<div class="container">
 
-			<h2 class="text-2xl mt-3">出生数と合計特殊出生率</h2>
+	<center>
+		<div class="container w-full mt-3 mb-3 md:w-10/12">
+
+			<h2 class="text-2xl text-center mb-3">少子化に関する統計</h2>
 			<div id="chart1"></div>
 
 
 
+
+			<div class="footer text-left mx-3 md:mx-0">
+				<p class="text-xs">出典：「政府統計の総合窓口(e-Stat)」、年次別にみた出生数・出生率（人口千対）・出生性比及び合計特殊出生率を加工・編集して作成</p>
+				<p class="text-xs mt-2">参考文献：ダッシュボードデザインの実践ガイドブック、デジタル庁</p>
+				<p class="text-sm mt-2"><a href="https://github.com/linkevery2s/japandashboard/tree/main/population"
+						target="_blank">src
+						on GitHub</a>. <a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank">CC
+						BY
+						4.0</a>
+				</p>
+				<p class="text-sm mt-2">Design and Code by <a href="https://hitoshi2s.netlify.app/" target="_blank">Saito
+						Hitoshi</a>.
+				</p>
+				<p class="text-sm mt-2">Build with <a href="https://tailwindcss.com/" target="_blank">Tailwind</a> and <a
+						href="https://apexcharts.com/" target="_blank">ApexCharts</a>.</p>
+			</div>
+
 		</div>
-
-		<p class="text-xs">出典：「政府統計の総合窓口(e-Stat)」、年次別にみた出生数・出生率（人口千対）・出生性比及び合計特殊出生率を加工・編集して作成</p>
-		<p class="text-sm"><a href="https://github.com/linkevery2s/japandashboard/tree/main/population" target="_blank">src on GitHub</a>.</p>
-		<p class="text-sm">Design and Code by <a href="https://hitoshi2s.netlify.app/" target="_blank">Saito Hitoshi</a>.</p>
-		<p class="text-sm">Build with <a href="https://tailwindcss.com/" target="_blank">Tailwind</a> and <a href="https://apexcharts.com/" target="_blank">ApexCharts</a>.</p>
-
 	</center>
+
 </body>
 
 </html>
