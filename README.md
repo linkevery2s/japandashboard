@@ -4,7 +4,7 @@
 
 ### 人口統計
 
-・[少子化](https://linkevery2s.github.io/japandashboard/population/birthrate.html)
+・[少子化に関する統計](https://linkevery2s.github.io/japandashboard/population/birthrate.html),[CSV](https://github.com/linkevery2s/japandashboard/blob/main/population/birthrate.csv),[JSON](https://github.com/linkevery2s/japandashboard/blob/main/population/birthrate.json)
 
 ・[高齢化率]
 
