@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<title>高齢化に関する統計</title>
+
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+	<meta charset="UTF-8" name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="https://cdn.tailwindcss.com"></script>
+
+	<style>
+		html,
+		body {
+			width: 100%;
+			padding: 0;
+			margin: 0;
+		}
+
+		#chart1 {
+			width: 100%;
+			padding: 0;
+			margin: 0;
+		}
+
+		a {
+			color: #72C598 !important;
+			border-bottom: 1px dotted #72C598;
+		}
+	</style>
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MPP84V2NHB"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-MPP84V2NHB');
+	</script>
+
+	<script type="module">
+
+		onload = async () => {
+			const data = await d3.csv('./agingrate.csv');
+
+			const data_length = data.length;
+
+			let x_axis = []; // x軸
+			let over65 = [];
+			let over70 = [];
+			let over75 = [];
+			let over80 = [];
+
+			for (let i = 0; i < data_length; i++) {
+				x_axis.push(data[i].year);
+				over65.push(data[i].over65 - data[i].over70);
+				over70.push(data[i].over70 - data[i].over75);
+				over75.push(data[i].over75 - data[i].over80);
+				over80.push(data[i].over80);
+			}
+
+			console.log(over80);
+
+
+			let options = {
+				series: [{
+					name: '80歳以上（万人）',
+					data: over80
+				}, {
+					name: '75歳以上80歳未満（万人）',
+					data: over75
+				}, {
+					name: '70歳以上75歳未満（万人）',
+					data: over70
+				}, {
+					name: '65歳以上70歳未満（万人）',
+					data: over65
+				}],
+				chart: {
+					type: 'bar',
+					height: 400,
+					stacked: true,
+					toolbar: {
+						show: true
+					},
+					zoom: {
+						enabled: true
+					}
+				},
+				responsive: [{
+					breakpoint: 500,
+					options: {
+						legend: {
+							position: 'bottom',
+							offsetX: 0,
+							offsetY: 0
+						}
+					}
+				}],
+				plotOptions: {
+					bar: {
+						horizontal: false,
+						borderRadius: 0,
+						dataLabels: {
+							total: {
+								enabled: true,
+								style: {
+									fontSize: '0.75rem',
+									fontWeight: 900
+								}
+							}
+						}
+					},
+				},
+				xaxis: {
+					categories: x_axis,
+					labels: {
+						datetimeFormatter: {
+							year: 'yyyy'
+						}
+					},
+				},
+				yaxis: {
+					type: 'numeric',
+					labels: {
+						formatter: function (label, index, labels) {
+							return label.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 3桁ごとに,を付ける
+						}
+					},
+				},
+				tooltip: {
+					x: {
+						format: 'yyyy'
+					}
+				},
+				legend: {
+					position: 'bottom',
+					offsetY: 10
+				},
+				fill: {
+					opacity: 1
+				}
+			};
+
+			let chart = new ApexCharts(document.querySelector("#chart"), options);
+			chart.render();
+
+
+		}
+
+	</script>
+</head>
+
+<body>
+
+	<center>
+		<div class="container w-full mt-3 mb-3 md:w-10/12">
+
+			<h2 class="text-2xl text-center mb-3">高齢化に関する統計</h2>
+			<div id="chart"></div>
+
+			<div class="footer text-left mx-3 md:mx-0">
+				<p class="text-xs">出典：「統計からみた我が国の高齢者」（総務省）を加工・編集して作成</p>
+				<p class="text-sm mt-2">
+					<a href="https://github.com/linkevery2s/japandashboard/tree/main/population" target="_blank">src on
+						GitHub</a>. <a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank">CC BY
+						4.0</a>
+				</p>
+				<p class="text-sm mt-2">Design and Code by <a href="https://hitoshi2s.netlify.app/"
+						target="_blank">Saito Hitoshi</a>.
+				</p>
+				<p class="text-sm mt-2">Build with <a href="https://tailwindcss.com/" target="_blank">Tailwind</a> and
+					<a href="https://apexcharts.com/" target="_blank">ApexCharts</a>.
+				</p>
+				<p class="text-xs mt-2">参考文献：ダッシュボードデザインの実践ガイドブック、デジタル庁</p>
+
+			</div>
+
+		</div>
+	</center>
+
+</body>
+
+</html>
