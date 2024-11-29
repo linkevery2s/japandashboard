@@ -87,14 +87,15 @@
 					enabled: false,
 					enabledOnSeries: [1]
 				},
-				labels: x_axis,
 				xaxis: {
-					type: 'datetime',
+					type: 'category',
+					categories: x_axis,
 					labels: {
 						datetimeFormatter: {
 							year: 'yyyy'
-						},
+						}
 					},
+					tickAmount: 15 /* x軸の間隔を決める */
 				},
 				tooltip: {
 					x: {
