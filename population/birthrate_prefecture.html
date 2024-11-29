@@ -36,22 +36,11 @@
 			japan.innerHTML += makeJapanHTML()
 
 			jpall.innerHTML = "全国：" + data[0]["2022年"]
+
 			paint(AREA_8)
-			/*let selectArea = create("select")
-			for (let area in AREASET) {
-				let op = create("option")
-				op.value = area
-				op.textContent = area
-				selectArea.appendChild(op)
-			}
-			jpall.appendChild(selectArea)
-			paint(AREA_8)
-			selectArea.onchange = function() {
-				const areaset = AREASET[this.value]
-				paint(areaset)
-			}*/
 
 		}
+
 		const getArea = (areaset, pref) => {
 			let n = PREF.indexOf(pref) + 1
 			if (n <= 0)
@@ -68,21 +57,7 @@
 
 		const paint = (areaset) => {
 
-			/*
-			let color = {}
-			let n = 0
-			let arealen = 0
-			for (let area in areaset)
-				arealen++
-			for (let area in areaset) {
-				let c = hsv2rgb(360 / arealen * n, .4 + (n % 2) * .15, 1)
-				color[area] = "rgb(" + c[0] + "," + c[1] + "," + c[2] + ")";
-				n++
-			}*/
-
 			let color;
-			let f_color;
-
 
 			console.log(data[0]["2022年"]);
 
@@ -91,24 +66,20 @@
 				const pref = PREF_S[i - 1]
 				c.num = i - 1
 				const area = getArea(areaset, pref)
-				c.innerHTML = pref + "<br>" + data[i]["2022年"]//"<a href='javascript:void(0);' onclick='map_dis(" + i + ");'>" + pref + "</a>"
-				
-				if(data[i]["2022年"] >= 1.41){
+				c.innerHTML = pref + "<br>" + data[i]["2022年"] //"<a href='javascript:void(0);' onclick='map_dis(" + i + ");'>" + pref + "</a>"
+
+				if (data[i]["2022年"] >= 1.41) {
 					color = "#0017C1";
-					f_color = "#ffffff";
-				}else if(data[i]["2022年"] < 1.4 && data[i]["2022年"] >= 1.31){
+				} else if (data[i]["2022年"] < 1.4 && data[i]["2022年"] >= 1.31) {
 					color = "#264AF4";
-					f_color = "#ffffff";
-				}else if(data[i]["2022年"] < 1.3 && data[i]["2022年"] >= 1.21){
+				} else if (data[i]["2022年"] < 1.3 && data[i]["2022年"] >= 1.21) {
 					color = "#4979F5";
-					f_color = "#ffffff";
-				}else{
+				} else {
 					color = "#9DB7F9";
-					f_color = "#000000";
 				}
 
 				c.style.backgroundColor = color;
-				c.style.color = f_color;
+				c.style.color = "#ffffff";
 				c.style.border = "none";
 			}
 		}
@@ -159,13 +130,13 @@
 			return s.join('')
 		}
 
-		let prefmap = Array(47);
+		/*let prefmap = Array(47);
 
 		let map_dis = (x) => {
 			prefmap = [0, "hokkaido", "aomori", "iwate", "miyagi", "akita", "yamagata", "fukushima", "ibaraki", "tochigi", "gunma", "saitama", "tiba", "tokyo", "kanagawa", "nigata", "toyama", "ishikawa", "fukui", "yamanashi", "nagano", "gifu", "shizuoka", "aichi", "mie", "shiga", "kyoto", "osaka", "hyogo", "nara", "wakayama", "tottori", "shimane", "okayama", "hiroshima", "yamaguchi", "tokushima", "kagawa", "ehime", "kochi", "fukuoka", "saga", "nagasaki", "kumamoto", "oita", "miyazaki", "kagoshima", "okinawa"];
 			open(prefmap[x] + ".html", "_blank");
 
-		}
+		}*/
 
 	</script>
 	<style>
@@ -185,14 +156,12 @@
 			display: inline-block;
 			width: 95vw;
 			height: 67vw;
-			x-background: red;
 			position: relative;
 		}
 
 		#map {
 			display: inline-block;
 			width: 95vw;
-			x-background: red;
 			position: relative;
 		}
 
@@ -225,28 +194,14 @@
 			font-size: 1.7vw;
 		}
 
-		/* credit */
-		.credit {
-			margin: 20px;
-			text-align: center;
-			font-size: 80%;
-		}
-
-		.credit a {
-			color: gray !important;
-		}
-
-		#debug {
-			text-align: left;
+		a {
+			color: #72C598 !important;
+			border-bottom: 1px dotted #72C598;
 		}
 
 		textarea {
 			width: 90%;
 			height: 5em;
-		}
-
-		#odicon {
-			width: 8vw;
 		}
 
 		#tbl table {
@@ -269,28 +224,32 @@
 		#tbl td {
 			border: 1px solid gray;
 		}
+
+		.footer {
+			font-size:  3vw;
+		}
 	</style>
 </head>
 
 <body>
 
-	<h1 class="header text-5xl my-5">少子化に関する統計「都道府県」</h1>
+	<h1 class="header text-5xl mb-5 mt-7">少子化に関する統計「都道府県」</h1>
 	<div id="japan"></div>
 
-	<div class="footer text-left mx-3 mb-5 mt-12">
-		<p class="text-xs">出典：「政府統計の総合窓口(e-Stat)」、都道府県別にみた年次別合計特殊出生率を加工・編集して作成</p>
-		<p class="text-sm mt-2">
+	<div class="footer text-left mx-7 mb-5 mt-14">
+		<p>出典：「政府統計の総合窓口(e-Stat)」、都道府県別にみた年次別合計特殊出生率を加工・編集して作成</p>
+		<p class="mt-2">
 			<a href="https://github.com/linkevery2s/japandashboard/tree/main/population" target="_blank">src on
 				GitHub</a>. <a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank">CC BY
 				4.0</a>
 		</p>
-		<p class="text-sm mt-2">Design and Code by <a href="https://hitoshi2s.netlify.app/" target="_blank">Saito
+		<p class="mt-2">Design and Code by <a href="https://hitoshi2s.netlify.app/" target="_blank">Saito
 				Hitoshi</a>.
 		</p>
-		<p class="text-sm mt-2">Build with <a href="https://tailwindcss.com/" target="_blank">Tailwind</a> and
-			<a href="https://apexcharts.com/" target="_blank">ApexCharts</a>.
+		<p class="mt-2">Build with <a href="https://tailwindcss.com/" target="_blank">Tailwind</a> ,
+			<a href="https://apexcharts.com/" target="_blank">ApexCharts</a> and <a href="https://github.com/tabularmaps/hq" target="_blank">カラム地図</a>.
 		</p>
-		<p class="text-xs mt-2">参考文献：ダッシュボードデザインの実践ガイドブック、デジタル庁</p>
+		<p class="mt-2">参考文献：ダッシュボードデザインの実践ガイドブック、デジタル庁. </p>
 
 	</div>
 
