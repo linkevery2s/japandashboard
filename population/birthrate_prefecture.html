@@ -68,6 +68,7 @@
 
 		const paint = (areaset) => {
 
+			/*
 			let color = {}
 			let n = 0
 			let arealen = 0
@@ -77,7 +78,11 @@
 				let c = hsv2rgb(360 / arealen * n, .4 + (n % 2) * .15, 1)
 				color[area] = "rgb(" + c[0] + "," + c[1] + "," + c[2] + ")";
 				n++
-			}
+			}*/
+
+			let color;
+			let f_color;
+
 
 			console.log(data[0]["2022年"]);
 
@@ -87,7 +92,23 @@
 				c.num = i - 1
 				const area = getArea(areaset, pref)
 				c.innerHTML = pref + "<br>" + data[i]["2022年"]//"<a href='javascript:void(0);' onclick='map_dis(" + i + ");'>" + pref + "</a>"
-				c.style.backgroundColor = color[area]
+				
+				if(data[i]["2022年"] >= 1.41){
+					color = "#0017C1";
+					f_color = "#ffffff";
+				}else if(data[i]["2022年"] < 1.4 && data[i]["2022年"] >= 1.31){
+					color = "#264AF4";
+					f_color = "#ffffff";
+				}else if(data[i]["2022年"] < 1.3 && data[i]["2022年"] >= 1.21){
+					color = "#4979F5";
+					f_color = "#ffffff";
+				}else{
+					color = "#9DB7F9";
+					f_color = "#000000";
+				}
+
+				c.style.backgroundColor = color;
+				c.style.color = f_color;
 				c.style.border = "none";
 			}
 		}
@@ -256,7 +277,7 @@
 	<h1 class="header text-5xl my-5">少子化に関する統計「都道府県」</h1>
 	<div id="japan"></div>
 
-	<div class="footer text-left mx-3 mb-5">
+	<div class="footer text-left mx-3 mb-5 mt-12">
 		<p class="text-xs">出典：「政府統計の総合窓口(e-Stat)」、都道府県別にみた年次別合計特殊出生率を加工・編集して作成</p>
 		<p class="text-sm mt-2">
 			<a href="https://github.com/linkevery2s/japandashboard/tree/main/population" target="_blank">src on
