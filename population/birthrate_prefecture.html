@@ -3,10 +3,11 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title>少子化に関する統計</title>
+	<title>少子化に関する統計「都道府県」</title>
 	<meta name="format-detection" content="telephone=no" />
 	<script src="https://fukuno.jig.jp/fukuno.js"></script>
 	<script src="https://cdn.tailwindcss.com"></script>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
 
 	<script>'use strict'
 
@@ -26,10 +27,15 @@
 
 		}
 
-		window.onload = () => {
+		let data;
+
+		window.onload = async () => {
+
+			data = await d3.csv('./birthrate_prefecture.csv');
+
 			japan.innerHTML += makeJapanHTML()
 
-			jpall.innerHTML = "全国："
+			jpall.innerHTML = "全国：" + data[0]["2022年"]
 			paint(AREA_8)
 			/*let selectArea = create("select")
 			for (let area in AREASET) {
@@ -44,6 +50,7 @@
 				const areaset = AREASET[this.value]
 				paint(areaset)
 			}*/
+
 		}
 		const getArea = (areaset, pref) => {
 			let n = PREF.indexOf(pref) + 1
@@ -71,12 +78,15 @@
 				color[area] = "rgb(" + c[0] + "," + c[1] + "," + c[2] + ")";
 				n++
 			}
+
+			console.log(data[0]["2022年"]);
+
 			for (let i = 1; i <= 47; i++) {
 				const c = get("jp" + i)
 				const pref = PREF_S[i - 1]
 				c.num = i - 1
 				const area = getArea(areaset, pref)
-				c.innerHTML = "<a href='javascript:void(0);' onclick='map_dis(" + i + ");'>" + pref + "</a>"
+				c.innerHTML = pref + "<br>" + data[i]["2022年"]//"<a href='javascript:void(0);' onclick='map_dis(" + i + ");'>" + pref + "</a>"
 				c.style.backgroundColor = color[area]
 				c.style.border = "none";
 			}
