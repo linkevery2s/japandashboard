@@ -606,5 +606,13 @@
     "weman": "375502",
     "birthrate": "6.3",
     "sum_special_birthrate": "1.3"
+  },
+  {
+    "year": "2023",
+    "sum": "727277",
+    "man": "-",
+    "weman": "-",
+    "birthrate": "-",
+    "sum_special_birthrate": "1.2"
   }
 ]
