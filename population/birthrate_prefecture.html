@@ -29,15 +29,17 @@
 
 		let data;
 
+		let head_year;
+
 		window.onload = async () => {
 
 			data = await d3.csv('./birthrate_prefecture.csv');
 
-			japan.innerHTML += makeJapanHTML()
+			japan.innerHTML += makeJapanHTML();
 
-			jpall.innerHTML = "全国：" + data[0]["2022年"]
+			head_year = Object.keys(data[1])[2]; // 先頭の年を取得。　2022年 etc
 
-			paint(AREA_8)
+			paint(AREA_8, head_year)
 
 		}
 
@@ -55,24 +57,24 @@
 			return null
 		}
 
-		const paint = (areaset) => {
+		const paint = (areaset, x) => {
 
 			let color;
 
-			console.log(data[0]["2022年"]);
+			jpall.innerHTML = "全国：" + data[0][x];
 
 			for (let i = 1; i <= 47; i++) {
 				const c = get("jp" + i)
 				const pref = PREF_S[i - 1]
 				c.num = i - 1
 				const area = getArea(areaset, pref)
-				c.innerHTML = pref + "<br>" + data[i]["2022年"] //"<a href='javascript:void(0);' onclick='map_dis(" + i + ");'>" + pref + "</a>"
+				c.innerHTML = pref + "<br>" + data[i][x] //"<a href='javascript:void(0);' onclick='map_dis(" + i + ");'>" + pref + "</a>"
 
-				if (data[i]["2022年"] >= 1.41) {
+				if (data[i][x] >= 1.41) {
 					color = "#0017C1";
-				} else if (data[i]["2022年"] < 1.4 && data[i]["2022年"] >= 1.31) {
+				} else if (data[i][x] < 1.4 && data[i][x] >= 1.31) {
 					color = "#264AF4";
-				} else if (data[i]["2022年"] < 1.3 && data[i]["2022年"] >= 1.21) {
+				} else if (data[i][x] < 1.3 && data[i][x] >= 1.21) {
 					color = "#4979F5";
 				} else {
 					color = "#9DB7F9";
@@ -227,7 +229,7 @@
 		}
 
 		.footer {
-			font-size:  3vw;
+			font-size: 3vw;
 		}
 	</style>
 </head>
@@ -235,7 +237,7 @@
 <body>
 
 	<h1 class="header text-5xl mb-5 mt-7">少子化に関する統計「都道府県」</h1>
-	
+
 	<div id="japan"></div>
 
 	<div class="footer text-left mx-7 mb-5 mt-14">
@@ -249,7 +251,8 @@
 				Hitoshi</a>.
 		</p>
 		<p class="mt-2">Build with <a href="https://tailwindcss.com/" target="_blank">Tailwind</a> ,
-			<a href="https://apexcharts.com/" target="_blank">ApexCharts</a> and <a href="https://github.com/tabularmaps/hq" target="_blank">カラム地図</a>.
+			<a href="https://apexcharts.com/" target="_blank">ApexCharts</a> and <a
+				href="https://github.com/tabularmaps/hq" target="_blank">カラム地図</a>.
 		</p>
 		<p class="mt-2">参考文献：ダッシュボードデザインの実践ガイドブック、デジタル庁. </p>
 
