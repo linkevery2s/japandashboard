@@ -5,7 +5,7 @@
 ### 人口統計
 |項 目|地 域|オープンデータ|
 |----|----|----|
-|少子化に関する統計|[全国](https://linkevery2s.github.io/japandashboard/population/birthrate.html)|全国：[CSV](https://github.com/linkevery2s/japandashboard/blob/main/population/birthrate.csv), [JSON](https://github.com/linkevery2s/japandashboard/blob/main/population/birthrate.json)|
+|少子化に関する統計|[全国](https://linkevery2s.github.io/japandashboard/population/birthrate.html), [都道府県](https://linkevery2s.github.io/japandashboard/population/birthrate_prefecture.html)|全国：[CSV](https://github.com/linkevery2s/japandashboard/blob/main/population/birthrate.csv), [JSON](https://github.com/linkevery2s/japandashboard/blob/main/population/birthrate.json)|
 |高齢化に関する統計|[全国](https://linkevery2s.github.io/japandashboard/population/agingrate.html)|全国：[CSV](https://github.com/linkevery2s/japandashboard/blob/main/population/agingrate.csv), [JSON](https://github.com/linkevery2s/japandashboard/blob/main/population/agingrate.json)|
 |人口比率|||
 |100歳以上の人口|||
