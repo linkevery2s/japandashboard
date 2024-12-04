@@ -31,13 +31,35 @@
 
 		let head_year;
 
+		let day = [];
+
+		let option;
+
 		window.onload = async () => {
 
 			data = await d3.csv('./birthrate_prefecture.csv');
 
+			//console.log(Object.keys(data[1]).length);
+
 			japan.innerHTML += makeJapanHTML();
 
 			head_year = Object.keys(data[1])[2]; // 先頭の年を取得。　2022年 etc
+
+			const month = document.getElementById('month');
+
+			for (let i = 2; i < Object.keys(data[1]).length; i++) {
+				day[i] = Object.keys(data[1])[i];
+
+				console.log(day[i - 2]);
+
+				option = document.createElement('option');
+				option.setAttribute('value', Object.keys(data[1])[i]);
+				option.innerHTML = day[i];
+				month.appendChild(option);
+
+			}
+
+			console.log(day);
 
 			paint(AREA_8, head_year)
 
@@ -132,13 +154,14 @@
 			return s.join('')
 		}
 
-		/*let prefmap = Array(47);
+		window.select_change = () => {
 
-		let map_dis = (x) => {
-			prefmap = [0, "hokkaido", "aomori", "iwate", "miyagi", "akita", "yamagata", "fukushima", "ibaraki", "tochigi", "gunma", "saitama", "tiba", "tokyo", "kanagawa", "nigata", "toyama", "ishikawa", "fukui", "yamanashi", "nagano", "gifu", "shizuoka", "aichi", "mie", "shiga", "kyoto", "osaka", "hyogo", "nara", "wakayama", "tottori", "shimane", "okayama", "hiroshima", "yamaguchi", "tokushima", "kagawa", "ehime", "kochi", "fukuoka", "saga", "nagasaki", "kumamoto", "oita", "miyazaki", "kagoshima", "okinawa"];
-			open(prefmap[x] + ".html", "_blank");
+			let selindex = document.getElementById('month').value;
+			console.log(selindex);
 
-		}*/
+			paint(AREA_8, selindex)
+
+		}
 
 	</script>
 	<style>
@@ -237,6 +260,12 @@
 <body>
 
 	<h1 class="header text-5xl mb-5 mt-7">少子化に関する統計「都道府県」</h1>
+
+	<center>
+		<select name="month" id="month" onchange="select_change();"
+			class="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-3xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+		</select>
+	</center>
 
 	<div id="japan"></div>
 
